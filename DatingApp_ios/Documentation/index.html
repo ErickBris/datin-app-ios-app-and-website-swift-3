@@ -1,0 +1,336 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Dating App for iOS</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;Dating App for iOS&rdquo; Documentation by &ldquo;Demyanchuk Dmitry&rdquo; v1.8</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;Dating App for iOS&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 08/03/2018<br>
+					By: Demyanchuk Dmitry<br>
+					Email: <a href="mailto:raccoonsquare@gmail.com">raccoonsquare@gmail.com</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my Dating App for iOS If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://codecanyon.net/user/qascript/?ref=qascript">Codecanyon page</a> or <a href="https://www.facebook.com/raccoonsquare" target="_blank">Facebook Page</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol>
+			<li><a href="#overview">Overview</a></li>
+			<li><a href="#stepbystep">Step by Step</a></li>
+			<li><a href="#phpInstall">PHP Installation Process</a></li>
+			<li><a href="#xcodeInstall">XCode Installation Process</a></li>
+			<li><a href="#emoji">How to add emoji support?</a></li>
+			<li><a href="#update">How to update?</a></li>
+			<li><a href="#addLanguage">Adding a new language (WEB SITE)</a></li>
+		</ol>
+		<ol class="alpha">
+			<li><a href="#phpEngineStructure">PHP Engine structure</a></li>
+			<li><a href="#faq">FAQ</a></li>
+		</ol>
+		
+		<hr>
+
+		<h3 id="overview"><strong>1) Overview</strong> - <a href="#toc">top</a></h3>
+
+		<p>
+			<b>Advice:</b>
+			<ol>
+				<li>To upload files to the server, use specialized programs, such as: FileZilla</li>
+				<li>To edit a php file has special editors are, for example: Sublime Text, phpStorm, Notepad ++. Do not use the standard editor Windows: Notepad! Notepad can change the encoding of a php file and you'll get an error!</a></li>
+			</ol>
+		</p>
+		
+		<p>This is important, please read:</p>
+
+		<p>error_reporting:
+			<br>
+			Default error_reporting set to E_ALL.
+			<br>
+			To set error_reporting to 0 - edit the file /core/init.inc.php
+		</p>
+
+		<p>All user data is cleaned with the following code (functions can be edited in the file: class/class.helper.inc.php):</p>
+		<pre>
+static function clearText($text) {
+
+	$text = trim($text);
+	$text = strip_tags($text);
+	$text = htmlspecialchars($text);
+
+	return $text;
+}
+
+static function clearInt($value) {
+
+	$value = intval($value);
+
+	return $value;
+}
+		</pre>
+		
+		<hr>
+
+		<h3 id="stepbystep"><strong>2) Step by Step</strong> - <a href="#toc">top</a></h3>
+
+		<p>
+			<b>Here I will describe the basic sequence of steps.</b>
+		</p>
+
+		<p>
+			<b>For FCM (Firebase Cloud Messages) and Apple in-app purchases:</b>
+
+			<ol>
+				<li><a target="_blank" href="http://ifsoft.co.uk/help/how_to_create_fcm/">How to create FCM project?</a></li>
+			</ol>
+			<ol>
+				<li><a target="_blank" href="http://ifsoft.co.uk/help/how_to_add_apple_in_app_purchase/">How to add apple in-app purchase?</a></li>
+			</ol>
+		</p>
+
+		<p>
+			<b>Server part:</b>
+
+			<ol>
+				<li>Prepare hosting. Create an empty (new) database, etc.</li>
+				<li>Upload files to server. Example, See here: <a target="_blank" href="http://ifsoft.co.uk/help/how_to_upload_script_on_the_server/">http://ifsoft.co.uk/help/how_to_upload_script_on_the_server/</a></li>
+				<li>Configure web part config (server/config/db.inc.php). <a href="#phpInstall">See here</a></li>
+				<li>Enter in browser: yousite.com/install.php. Install script</li>
+			</ol>
+		</p>
+
+		<p>
+			<b>XCode App:</b>
+			
+			<ol>
+				<li>Open the terminal window in the project directory and type: pod install (cocoapods must be installed on you mac: https://cocoapods.org/)</li>
+				<li>Open project in XCode using SocialApp.xcworkspace file</li>
+				<li>Rename project (I recommend: do not change the SocialApp folders name and Project name). How to rename the project - there are many ways. I use - <a href="http://stackoverflow.com/a/35500038">http://stackoverflow.com/a/35500038</a></li>
+				<li>Configure App config (Constants.swift). <a href="#xcodeInstall">See here</a></li>
+				<li>Run App for test.</li>
+			</ol>
+		</p>
+
+		<p>I describe only main steps! For more information about configuring in documentation and comments (in config files)</p>
+
+		<p>
+			<b>Some information:</b>
+
+			<ol>
+				<li>I do not use local server for testing and development. Only real server (hosting).</li>
+				<li>I use Linux hosting with apache, php and MySQL</li>
+				<li>I recommend: do not change the SocialApp folders name and Project name.</li>
+				<li>Most users choose GoDaddy Hosting</li>
+				<li>Server part is not working correctly on hosting for Wordpress (maybe a problem in .htaccess files from Worpress hosting)</li>
+				<li>I do not use emulators (Android Apps). I use only real devices for testing and development. Reason: for example, FCM and Apple Push Notifications does not work on emulator (sometimes FCM works correctly on emulators)</li>
+				<li>I always use latest version of XCode</li>
+				<li>You need to have CocoaPods on your Mac installed</li>
+			</ol>
+		</p>
+		
+		<hr>
+
+		<h3 id="phpInstall"><strong>3) Php Installation Process</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Configure the server part with fast three easy steps!</p>
+		<p>How to upload script to the server, read here: <a href="http://ifsoft.co.uk/help/how_to_upload_script_on_the_server/" target="_blank">How to upload script to the server</a></p>
+
+		<ol>
+			<li>Open and edit config/db.inc.php (edit the data on the selected image)</li>
+<pre>
+	$B['CLIENT_ID'] = 1;
+	$B['APP_URL'] = "edit to your domain example: http://yourdomain.com";
+	$C['DB_HOST'] = "localhost or your db host";
+	$C['DB_USER'] = "your db user";
+	$C['DB_PASS'] = "your db password";
+	$C['DB_NAME'] = "your db name";
+</pre>
+			<img src="assets/images/php_install.png" alt="PHP Engine Structure" />
+			<li>Upload the script to the root server.</li>
+			<li>Open in browser: http://your_site.com/install.php - You create the first user (administrator account), which will be open full access to the admin panel.</li>
+			<li>Admin Panel Login Page: http://your_site.com/admin/login.php</li>
+		</ol>
+		
+		<p></p>
+		<p>If you correctly follow the three simple steps, then the browser will automatically redirect you to the admin panel!</p>
+		
+		<hr>
+
+		<h3 id="xcodeInstall"><strong>4) XCode Installation Process</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Configure XCode project with easy steps!</p>
+
+		<ol>
+			<li>Open and edit Constants.swift (edit the data on the selected image)</li>
+			<img src="assets/images/xcodeInstall.png" alt="XCode" />
+			<li>Bundle Identifier and App Name (edit the data on the selected image)</li>
+			<img src="assets/images/xcodeInstall2.png" alt="XCode" />
+			<li>I recommend: do not change the SocialApp folders name and Project name.</li>
+		</ol>
+		
+		<hr>
+
+		<h3 id="emoji"><strong>5) How to add emoji support?</strong> - <a href="#toc">top</a></h3>
+		
+		<p><b>Caution! It is important!</b></p>
+		<p><b>For correct storage emoji characters in the database requires MySQL version not lower than 5.5.3! Before any action is required to create a backup of all databases, a comparison that will change!</b></p>
+
+		<ol>
+			<li>Find out which version of MySQL is running on your server. Character set utf8mb4 introduced in MySQL starting from version 5.5.3, on this, you'll need to update your version of MySQL server if it is lower than this, or ask it to do your system administrator.</li>
+			<li>Type in your browser: http://yousite.com/enable_emoji.php and press Enter (Database will be automatically corrected).</li>
+			<li>
+				<ol class="alpha">
+					<li>Open the file /core/init.inc.php.</li>
+					<li>Find the line (29): <b>$dbo = new PDO ($dsn, DB_USER, DB_PASS, array (PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));</b></li>
+					<li>Replace line to: <b>$dbo = new PDO ($dsn, DB_USER, DB_PASS, array (PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));</b></li>
+					<li>Save the file.</li>
+				</ol>
+			</li>
+			<li>
+				<ol class="alpha">
+					<li>Open the file /class/class.db_connect.inc.php.</li>
+					<li>Find the line (31): <b>$this->db = new PDO($dsn, DB_USER, DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));</b></li>
+					<li>Replace line to: <b>$this->db = new PDO($dsn, DB_USER, DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"));</b></li>
+					<li>Save the file.</li>
+				</ol>
+			</li>
+			<li>If done correctly and MySQL version not lower than 5.5.3: Everything will work!</li>
+		</ol>
+
+		<p><b>I did not support the default character set utf8mb4, because some users are on their servers MySQL version lower than 5.5.3</b></p>
+		<p><b>Correction is subject only: messages, posts and comments tables! This means that will add support emoji only in personal messages, posts and comments!</b></p>
+		
+		<hr>
+
+		<h3 id="update"><strong>6) How to update?</strong> - <a href="#toc">top</a></h3>
+		
+		<p><b>Caution! It is important!</b></p>
+
+		<p><b>Folders "XCode Project (client)" and "PHP Engine (server)" - Always include the newest, full source code!</b></p>
+
+		<p>Hello.</p>
+		<ol class="alpha">
+			<li>Update files from a folder Update_1.7_to_1.8 (Only if you are upgrading from version 1.7 to version 1.8)</li>
+			<li>Open the terminal window in the project directory and type: pod install (cocoapods must be installed on you mac: https://cocoapods.org/)</li>
+			<li>Configure you AdMob. See here: <a href="http://ifsoft.co.uk/help/how_to_get_banner_ad_unit_id_from_admob_ios/">http://ifsoft.co.uk/help/how_to_get_banner_ad_unit_id_from_admob_ios/</a></li>
+			<li>After upgrading server side files Enter in browser: yousite.com/update.php for database correction</li>
+			<li>Open project in XCode using SocialApp.xcworkspace file</li>
+		</ol>
+
+		<p><b>Be careful! "Update_1.7_to_1.8" folder contains only changed and new files.</b></p>
+
+		<hr>
+
+		<h3 id="addLanguage"><strong>7) Adding a new language (WEB SITE)</strong> - <a href="#toc">top</a></h3>
+		
+		<p>Add a new language is very easy! Let's see an example with the addition of the German language:</p>
+
+		<ol>
+			<li>Copy the file lang/en.php to lang/de.php;</li>
+			<li>Make translating text strings in the file lang/de.php to German;</li>
+			<li>Open the file config/db.inc.php and at the end of the file add the line: $ LANGS ['Deutsch'] = "de";</li>
+			<img src="assets/images/phpengine_add_language.png" alt="PHP Engine Structure" />
+		</ol>
+		
+		<hr>
+		
+		<h3 id="phpEngineStructure"><strong>A) PHP Engine structure</strong> - <a href="#toc">top</a></h3>
+		<p>The structure of the project consists of four main directories:</p>
+		
+		<img src="assets/images/phpenginestructure.png" alt="PHP Engine Structure" />
+
+		<p>1. admin - directory contains admin panel html files.</p>
+		<p>2. api - directory contains methods that are called from the application.</p>
+		<p>3. class - directory includes php class files.</p>
+		<p>4. common - directory includes header, footer, topbar files for admin panel.</p>
+		<p>5. config - directory contains the files needed for work and application settings: configuration files.</p>
+		<p>6. core - directory contains the files needed for work and application settings: configuration files.</p>
+		<p>7. css - directory include these files: css.</p>
+		<p>8. img - directory include these files: image files.</p>
+		<p>9. js - directory include these files: js.</p>
+
+		<hr>
+		
+		<h3 id="faq"><strong>B) FAQ</strong> - <a href="#toc">top</a></h3>
+
+		<p>
+			<b>1. Where to change the time string (1m ago, 10h ago)?</b>
+			<br>
+			<div>Watch and edit the file class/class.language.inc.php on the server side.</div>
+		</p>
+
+		<p>
+			<b>2. Why can not I send messages gcm?</b>
+			<br>
+			<div>First, check whether you have enabled on the server module curl (the most common problem). Check the settings on your application to Google Console</div>
+		</p>
+
+		<p>
+			<b>3. Why can not I upload a picture?</b>
+			<br>
+			<div>Set the directory (server side) cover, images, photo, chat_images permissions: 755</div>
+		</p>
+
+		<p>
+			<b>4. Where to change the text for the sections Acknowledgements and Terms of Use?</b>
+			<div>
+				The server side, files:
+				<br>
+				api\v2\method\app.thanks.inc.php 
+				<br>
+				api\v2\method\app.terms.inc.php
+			</div>
+		</p>
+
+		<p>
+			<b>5. What is CLIENT_ID?</b>
+			<div>
+				CLIENT_ID - integer by which server (script) identifies your Android or iOS app. CLIENT_ID - you need to create (generate) yourself! For example: 1754
+			</div>
+		</p>
+
+		<p>
+			<b>6. Does not work password recovery function with hotmail and yahoo mail??</b>
+			<div>
+				This is not a problem in the script and no problem with the phpmailer module! Read here: <a target="_blank" href="https://stackoverflow.com/a/41515497">https://stackoverflow.com/a/41515497</a> and here <a target="_blank" href="https://github.com/PHPMailer/PHPMailer/issues/238">https://github.com/PHPMailer/PHPMailer/issues/238</a>
+			</div>
+		</p>
+		
+		<hr>
+		
+		<p>Once again, thank you so much for purchasing this application. As I said at the beginning, I'd be glad to help you if you have any questions relating to this theme. No guarantees, but I'll do my best to assist. If you have a more general question relating to the application on CodeCanyon, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p> 
+		
+		<p class="append-bottom alt large"><strong>Demyanchuk Dmitry</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>
